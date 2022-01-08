@@ -11,12 +11,16 @@ function Header() {
   useEffect(() => {
     window.localStorage.setItem("num", num);
   }, [num]);
-  window.onload = myFunction();
+   window.onload = function () {
+    myFunction();
+  };
 
   function myFunction() {
-    const previousCount = Number(localStorage.getItem("incCount")) || 0;
-    count = previousCount + 1;
-    localStorage.setItem("incCount", count);
+    fetch("https://api.countapi.xyz/update/viewapi/reactapi/?amount=1")
+      .then((res) => res.json())
+      .then((res) => {
+        document.getElementById("count").innerHTML = res.value;
+      });
   }
 
   return (
@@ -51,7 +55,7 @@ function Header() {
         </CardContent>
         <CardInteraction>
           <CardCount>
-            {count} Views | {num} Likes | 22 Comments | 7 Shares
+            <div id="count">0</div> Views | {num} Likes | 22 Comments | 7 Shares
           </CardCount>
           <CardBottom>
             <CardLike onClick={() => incNum(1)}>Like</CardLike>

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Data from "./data.json";
+import Comment from "./Comment";
 function Header() {
   const [num, setNum] = useState(109);
+  const [Commentup, setComment] = useState(false);
   var count;
   const incNum = (incNum) => {
     setNum((prevState) => prevState + incNum);
@@ -59,7 +61,16 @@ function Header() {
           </CardCount>
           <CardBottom>
             <CardLike onClick={() => incNum(1)}>Like</CardLike>
-            <CardComment onClick={() => incNum(1)}>Comment</CardComment>
+            <CardComment onClick={() => incNum(1), () => setComment(true))}}>Comment</CardComment>
+            <Comment trigger={Commentup} setTrigger={setComment}>
+              <h2>Leave a Comment</h2>
+              <Cform>
+                <Clabel>
+                  <Cinput type="text" placeholder="Write Your Comment..." />
+                </Clabel>
+                <Cinputb type="submit" value="Submit" />
+              </Cform>
+             </Comment>
             <CardShare onClick={() => incNum(1)}>Sahre</CardShare>
           </CardBottom>
         </CardInteraction>
@@ -155,4 +166,16 @@ const CardShare = styled.button`
   color: #b2bdb5;
   margin-left: 35px;
   cursor: pointer;
+`;
+const Cform = styled.form``;
+const Clabel = styled.label`
+  width: 100%;
+`;
+const Cinput = styled.input`
+  height: 100px;
+  width: 100%;
+  border: 2px solid #333;
+`;
+const Cinputb = styled.input`
+  width: 100px;
 `;
